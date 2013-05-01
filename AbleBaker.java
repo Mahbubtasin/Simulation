@@ -36,6 +36,7 @@ public class AbleBaker {
                 "       "+Customers[0].serviceStartTime + server + "        "+ endTime);
         for(int i = 1; i < 10; i++){
             Customers[i]= new Customer();
+            int tempI=i;
                     
             cumulativeInterarrival += Customers[i].arrivalTime;
             update();
@@ -55,7 +56,6 @@ public class AbleBaker {
             //If Baker frees up
             } else if (Baker.whenAvailable <= cumulativeInterarrival){
                 Baker.whenAvailable = Baker.whenAvailable + Customers[i].serviceTime;
-               
                 Customers[i].serviceStartTime = cumulativeInterarrival;
                 Customers[i].serviceTime = Baker.serviceTime('b');
                 Baker.whenAvailable = cumulativeInterarrival 
@@ -64,6 +64,7 @@ public class AbleBaker {
             //If neither free up, add them to the Queue
             } else {
                 customerQueue.add(Customers[i]);
+                i--;
             }
             
             if( Customers[i].serviceTime == Able.serviceTime('a'))
@@ -75,17 +76,24 @@ public class AbleBaker {
                 server = "Baker";
             }
             
-            System.out.println(i +1 + "        " +Customers[i].arrivalTime+"       "+
+            if(tempI == i){
+            System.out.println(i + 1 + "        " +Customers[i].arrivalTime+"       "+
                     cumulativeInterarrival+"        "+Able.whenAvailable+"      "+
                     Baker.whenAvailable+"       "+Customers[i].serviceTime+"        "+
                     Customers[i].serviceStartTime + "       " + server +
                     "       " + endTime);
+            }
         //testing
         }
+        //cumulativeInterarrival += 100;
+        //update();
+        
+        
 //        for(int i = 0; i < 10; i++){
 //            System.out.print(Customers[i].serviceTime+" ");
 //            System.out.println(Customers[i].arrivalTime);
 //        }
+//        output();
     }
 //-----------------------------------------------------------------------------
 //update()
@@ -106,5 +114,15 @@ public class AbleBaker {
             }
         }
     }
+    
+//    public static void output(){
+//        for(int i = 0; i<Customers.length; i++){
+//            System.out.println(i + 1 + "        " +Customers[i].arrivalTime+"       "+
+//                    cumulativeInterarrival+"        "+Able.whenAvailable+"      "+
+//                    Baker.whenAvailable+"       "+Customers[i].serviceTime+"        "+
+//                    Customers[i].serviceStartTime + "       " + server +
+//                    "       " + endTime);
+//        }
+//    }
 }
 
