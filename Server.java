@@ -5,7 +5,7 @@ import java.util.*;
  * @author Erik Westover
  */
 public class Server {
-    public boolean busy = false;
+    //public boolean busy = false;
     public int whenAvailable = 0;
     public static double[][] serviceProb = new double[4][2];
     Random rgen = new Random();

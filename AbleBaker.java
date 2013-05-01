@@ -18,17 +18,18 @@ public class AbleBaker {
     public static void main(String[] args) {
         // TODO code application logic here
         
+        Customers[0] = new Customer();
         Customers[0].arrivalTime = 0;
         Customers[0].serviceStartTime = 0;
         Customers[0].serviceTime = Able.serviceTime('a');
-        Able.busy = true;
+       // Able.busy = true;
         Able.whenAvailable = Customers[0].serviceTime;
         
-        
+        System.out.println("Cust    Inter   Cummu   Able    Baker   Serve   Start");
         for(int i = 1; i < 10; i++){
             Customers[i]= new Customer();
                     
-            cumulativeInterarrival = Customers[i].arrivalTime;
+            cumulativeInterarrival += Customers[i].arrivalTime;
             update();
             
             //If Able frees up 
@@ -55,7 +56,10 @@ public class AbleBaker {
                 customerQueue.add(Customers[i]);
             }
             
-            System.out.println(Customers[i].arrivalTime + " This is customer " + i);
+            System.out.println(i + "        " +Customers[i].arrivalTime+"       "+
+                    cumulativeInterarrival+"        "+Able.whenAvailable+"      "+
+                    Baker.whenAvailable+"       "+Customers[i].serviceTime+"        "+
+                    Customers[i].serviceStartTime);
         //testing
         }
 //        for(int i = 0; i < 10; i++){
@@ -63,6 +67,8 @@ public class AbleBaker {
 //            System.out.println(Customers[i].arrivalTime);
 //        }
     }
+//-----------------------------------------------------------------------------
+//update()
     public static void update(){
         while(!customerQueue.isEmpty()){
             if(Able.whenAvailable <= Baker.whenAvailable 
