@@ -8,6 +8,7 @@ public class Customer {
     public int arrivalTime;
     public int serviceStartTime;
     public int serviceTime;
+    public int customerNum;
     public static double[][] interarrivalProb = new double[5][2];
     Random rgen = new Random();
     

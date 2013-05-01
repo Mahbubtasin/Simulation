@@ -9,6 +9,7 @@ public class Server {
     public int whenAvailable = 0;
     public static double[][] serviceProb = new double[4][2];
     Random rgen = new Random();
+    public static int endTime;
        
     public Server(char server){
         if(server == 'a'){
@@ -57,5 +58,6 @@ public class Server {
         }
         return aTime;
     }
+    
     
 }
