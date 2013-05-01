@@ -9,6 +9,7 @@ public class Customer {
     public int serviceStartTime;
     public int serviceTime;
     public int customerNum;
+    public int endTime;
     public static double[][] interarrivalProb = new double[5][2];
     Random rgen = new Random();
     
