@@ -10,13 +10,7 @@ public class AbleBaker {
     //public static int endTime;
     public static int queueLength=0;
     public static Queue<Customer> customerQueue = new LinkedList<Customer>();
-    static int waitingTimeSum = 0;
-    static int serviceTimeSum = 0;
-    static int arrivalTimeSum = 0;
-    static int inSystemTimeSum = 0;
-    static int timeInSystem = 0;
-    
-   
+
     public static void main(String[] args) {
         Customers[0] = new Customer();
         Customers[0].arrivalTime = 0;
@@ -24,17 +18,14 @@ public class AbleBaker {
         Customers[0].serviceTime = Able.serviceTime('a');
         server = "      Able";
         Customers[0].endTime = Customers[0].serviceTime;
-        timeInSystem = Customers[0].endTime - Customers[0].arrivalTime;
        // Able.busy = true;
         Able.whenAvailable = Customers[0].serviceTime;
         
-        System.out.println("Cust    Inter   Cummu   Able    Baker   Serve   Start   Server  EndTime"
-                + " Time in System");
+        System.out.println("Cust    Inter   Cummu   Able    Baker   Serve   Start   Server  EndTime");
         System.out.println(1 + "        " +Customers[0].arrivalTime+ "      "+ 
                 cumulativeInterarrival+"        "+ Able.whenAvailable+ "        " +
                 Baker.whenAvailable+"       "+Customers[0].serviceTime+
-                "       "+Customers[0].serviceStartTime + server + "        "+ Customers[0].endTime
-                + "     " + timeInSystem);
+                "       "+Customers[0].serviceStartTime + server + "        "+ Customers[0].endTime);
         for(int i = 1; i < 10; i++){
             Customers[i]= new Customer();
             int tempI=i;
@@ -53,7 +44,6 @@ public class AbleBaker {
                 Able.whenAvailable = cumulativeInterarrival 
                         + Customers[i].serviceTime;
                 Customers[i].endTime = Customers[i].serviceStartTime + Customers[i].serviceTime;
-                timeInSystem = Customers[i].endTime - cumulativeInterarrival;
             
             //If Baker frees up
             } else if (Baker.whenAvailable <= cumulativeInterarrival){
@@ -63,13 +53,11 @@ public class AbleBaker {
                 Baker.whenAvailable = cumulativeInterarrival 
                         + Customers[i].serviceTime;
                  Customers[i].endTime = Customers[i].serviceStartTime + Customers[i].serviceTime;
-                 timeInSystem = Customers[i].endTime - cumulativeInterarrival;
             //If neither free up, add them to the Queue
             } else {
-                //cumulativeInterarrival -= Customers[i].arrivalTime;
                 customerQueue.add(Customers[i]);
                 queueLength ++;
-                i--;               
+                i--;
             }
             
             if( Customers[i].serviceTime == Able.serviceTime('a'))
@@ -86,7 +74,7 @@ public class AbleBaker {
                     cumulativeInterarrival+"        "+Able.whenAvailable+"      "+
                     Baker.whenAvailable+"       "+Customers[i].serviceTime+"        "+
                     Customers[i].serviceStartTime + "       " + server +
-                    "       " + Customers[i].endTime + "        " + timeInSystem);
+                    "       " + Customers[i].endTime);
             }
         }
     }
@@ -111,7 +99,7 @@ public class AbleBaker {
             }
         }
     }
-     public static void analytics(){
+    public static void analytics(){
       //  avg waiting time
         //Probability cust in queue
         //Probability of Idle
@@ -119,14 +107,16 @@ public class AbleBaker {
         //avg time between arrivals
         //avg waiting time
         //avg time in system
-        
+        int waitingTimeSum = 0;
+        int serviceTimeSum = 0;
+        int arrivalTimeSum = 0;
+        int inSystemTimeSum = 0;
         for(int i = 0; i<Customers.length; i++){
             serviceTimeSum+=Customers[i].serviceTime;
             waitingTimeSum+=(Customers[i].serviceStartTime-Customers[i].arrivalTime);
             arrivalTimeSum+=Customers[i].arrivalTime;
-            inSystemTimeSum+=(Customers[i].endTime-cumulativeInterarrival);
+            inSystemTimeSum+=(Customers[i].endTime-Customers[i].arrivalTime);
         }
     }
-
 }
 
